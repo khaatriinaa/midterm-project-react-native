@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -8,20 +8,15 @@ import {
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { fetchJobs } from "../../api/jobsApi";
-import { JobsContext } from "../../context/JobsContext";
-import { ThemeContext } from "../../context/ThemeContext";
 import { Job } from "../../types/JobTypes";
 import styles from "./JobFinderStyles";
 import JobCard from "../../components/JobCard";
-import ThemeToggle from "../../components/ThemeToggle";
+import SearchBar from "../../components/SearchBar";
 
 export default function JobFinderScreen({ navigation }: any) {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [search, setSearch] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-
-  const { saveJob, savedJobs } = useContext(JobsContext);
-  const { isDark, toggleTheme } = useContext(ThemeContext);
 
   const loadJobs = async () => {
     setRefreshing(true);
@@ -41,39 +36,37 @@ export default function JobFinderScreen({ navigation }: any) {
   );
 
   return (
-    <View style={[styles.container, isDark && styles.dark]}>
-        
-        {/* Theme Toggle Component */}
-        <ThemeToggle />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.greeting}>Hello 👋</Text>
+        <Text style={styles.greeting}>Find your dream job</Text>
+      </View>
 
-        <FlatList
+      <SearchBar value={search} onChange={setSearch} />
+
+      <FlatList
+        contentContainerStyle={styles.list}
         data={filtered}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         refreshControl={
-            <RefreshControl
-            refreshing={refreshing}
-            onRefresh={loadJobs}
-            />
+          <RefreshControl refreshing={refreshing} onRefresh={loadJobs} />
         }
         renderItem={({ item }) => (
-            <JobCard
+          <JobCard
             job={item}
             onApply={() =>
-                navigation.navigate("ApplicationForm", {
-                fromSaved: false,
-                })
+              navigation.navigate("ApplicationForm", { fromSaved: false })
             }
-            />
+          />
         )}
-        />
+      />
 
-        <Pressable
+      <Pressable
         style={styles.savedNav}
         onPress={() => navigation.navigate("SavedJobs")}
-        >
-        <Text style={styles.btnText}>Go to Saved Jobs</Text>
-        </Pressable>
+      >
+        <Text style={styles.btnText}>Saved Job</Text>
+      </Pressable>
     </View>
-    );
-
+  );
 }

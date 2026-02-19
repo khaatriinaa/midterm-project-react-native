@@ -1,4 +1,4 @@
-import 'react-native-get-random-values'; // ✅ Required for UUID
+import 'react-native-get-random-values';
 
 import React from "react";
 import { StatusBar } from "react-native";

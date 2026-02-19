@@ -1,12 +1,10 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   JobFinder: undefined;
   SavedJobs: undefined;
-  ApplicationForm: { fromSaved?: boolean } | undefined;
+  ApplicationForm: { fromSaved: boolean };
 };
 
-export type ScreenProps<T extends keyof RootStackParamList> = {
-  navigation: NativeStackNavigationProp<RootStackParamList, T>;
-  route: any;
-};
+export type ApplicationFormProps =
+  NativeStackScreenProps<RootStackParamList, "ApplicationForm">;

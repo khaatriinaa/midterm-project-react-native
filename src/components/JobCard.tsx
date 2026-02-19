@@ -16,7 +16,7 @@ export default function JobCard({ job, onApply }: Props) {
   const isSaved = savedJobs.some(j => j.id === job.id);
 
   return (
-    <View style={[styles.card, isDark && styles.darkCard]}>
+    <View style={[styles.card, isDark && styles.dark]}>
       <Text style={[styles.title, isDark && styles.darkText]}>
         {job.title}
       </Text>
@@ -25,90 +25,62 @@ export default function JobCard({ job, onApply }: Props) {
         {job.company}
       </Text>
 
-      <Text style={[styles.details, isDark && styles.darkText]}>
-        {job.salary}
-      </Text>
-
-      <Text style={[styles.details, isDark && styles.darkText]}>
-        {job.location}
-      </Text>
-
-      <Pressable
-        style={[
-          styles.saveBtn,
-          isSaved && styles.savedBtn
-        ]}
-        onPress={() => saveJob(job)}
-      >
-        <Text style={styles.btnText}>
-          {isSaved ? "Saved" : "Save Job"}
+      <View style={styles.row}>
+        <Text style={[styles.salary, isDark && styles.darkText]}>
+          {job.salary}
         </Text>
-      </Pressable>
+        <Text style={[styles.location, isDark && styles.darkText]}>
+          {job.location}
+        </Text>
+      </View>
 
-      <Pressable style={styles.applyBtn} onPress={onApply}>
-        <Text style={styles.btnText}>Apply</Text>
-      </Pressable>
+      <View style={styles.btnRow}>
+        <Pressable
+          style={[styles.saveBtn, isSaved && styles.saved]}
+          onPress={() => saveJob(job)}
+        >
+          <Text style={styles.btnText}>
+            {isSaved ? "Saved" : "Save"}
+          </Text>
+        </Pressable>
+
+        <Pressable style={styles.applyBtn} onPress={onApply}>
+          <Text style={styles.btnText}>Apply</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fff",
     padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    elevation: 4,
+    borderRadius: 18,
+    marginBottom: 14,
+    elevation: 3,
   },
-
-  darkCard: {
-    backgroundColor: "#1e1e1e",
-  },
-
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 4,
-    color: "#1a1a1a",
-  },
-
-  company: {
-    fontSize: 14,
-    marginBottom: 4,
-    color: "#444",
-  },
-
-  details: {
-    fontSize: 13,
-    marginBottom: 4,
-    color: "#666",
-  },
-
-  darkText: {
-    color: "#ffffff",
-  },
-
+  dark: { backgroundColor: "#1e1e1e" },
+  title: { fontSize: 16, fontWeight: "bold" },
+  company: { fontSize: 14, color: "#666", marginVertical: 4 },
+  row: { flexDirection: "row", justifyContent: "space-between" },
+  salary: { fontWeight: "bold", color: "#1976D2" },
+  location: { color: "#888" },
+  btnRow: { flexDirection: "row", marginTop: 12 },
   saveBtn: {
-    backgroundColor: "#1976D2",
-    paddingVertical: 10,
-    borderRadius: 8,
-    marginTop: 10,
+    flex: 1,
+    backgroundColor: "#424242",
+    padding: 10,
+    borderRadius: 10,
+    marginRight: 6,
   },
-
-  savedBtn: {
-    backgroundColor: "#757575",
-  },
-
+  saved: { backgroundColor: "#757575" },
   applyBtn: {
-    backgroundColor: "#2E7D32",
-    paddingVertical: 10,
-    borderRadius: 8,
-    marginTop: 8,
+    flex: 1,
+    backgroundColor: "#1976D2",
+    padding: 10,
+    borderRadius: 10,
   },
-
-  btnText: {
-    color: "#fff",
-    textAlign: "center",
-    fontWeight: "600",
-  },
+  btnText: { color: "#fff", textAlign: "center", fontWeight: "600" },
+  darkText: { color: "#fff" },
 });

@@ -1,36 +1,23 @@
 import React, { useContext } from "react";
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, FlatList } from "react-native";
 import { JobsContext } from "../../context/JobsContext";
-import styles from "./SavedJobsStyles";
+import JobCard from "../../components/JobCard";
 
 export default function SavedJobsScreen({ navigation }: any) {
-  const { savedJobs, removeJob } = useContext(JobsContext);
+  const { savedJobs } = useContext(JobsContext);
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, padding: 20 }}>
       <FlatList
         data={savedJobs}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.title}>{item.title}</Text>
-
-            <Pressable
-              style={styles.applyBtn}
-              onPress={() =>
-                navigation.navigate("ApplicationForm", { fromSaved: true })
-              }
-            >
-              <Text style={styles.btnText}>Apply</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.removeBtn}
-              onPress={() => removeJob(item.id)}
-            >
-              <Text style={styles.btnText}>Remove</Text>
-            </Pressable>
-          </View>
+          <JobCard
+            job={item}
+            onApply={() =>
+              navigation.navigate("ApplicationForm", { fromSaved: true })
+            }
+          />
         )}
       />
     </View>

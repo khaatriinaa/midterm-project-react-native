@@ -1,9 +1,9 @@
 import React from "react";
 import {
   View,
-  Text,
   TextInput,
   Pressable,
+  Text,
   Alert,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -12,17 +12,25 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styles from "./ApplicationFormStyles";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ApplicationFormProps } from "../../navigation/Props";
 
-const validationSchema = Yup.object().shape({
-  name: Yup.string().min(3).required("Name is required"),
-  email: Yup.string().email("Invalid email").required("Email required"),
+const schema = Yup.object({
+  name: Yup.string()
+    .min(3, "Min 3 characters")
+    .required("Required"),
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Required"),
   contact: Yup.string()
-    .matches(/^[0-9]{11}$/, "Must be 11 digits")
-    .required("Contact required"),
-  reason: Yup.string().min(10).required("Required"),
+    .matches(/^[0-9]{11}$/, "11 digits required")
+    .required("Required"),
+  reason: Yup.string()
+    .min(10, "Min 10 characters")
+    .required("Required"),
 });
 
-export default function ApplicationFormScreen({ navigation, route }: any) {
+export default function ApplicationFormScreen({ navigation, route }: ApplicationFormProps) {
   const fromSaved = route.params?.fromSaved;
 
   return (
@@ -30,9 +38,9 @@ export default function ApplicationFormScreen({ navigation, route }: any) {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Formik
           initialValues={{ name: "", email: "", contact: "", reason: "" }}
-          validationSchema={validationSchema}
+          validationSchema={schema}
           onSubmit={(values, { resetForm }) => {
-            Alert.alert("Application Submitted", "We will contact you.", [
+            Alert.alert("Application Sent", "We will contact you", [
               {
                 text: "Okay",
                 onPress: () => {
@@ -61,8 +69,8 @@ export default function ApplicationFormScreen({ navigation, route }: any) {
               <TextInput
                 placeholder="Full Name"
                 style={styles.input}
-                onChangeText={handleChange("name")}
                 value={values.name}
+                onChangeText={handleChange("name")}
               />
               {touched.name && errors.name && (
                 <Text style={styles.error}>{errors.name}</Text>
@@ -71,19 +79,19 @@ export default function ApplicationFormScreen({ navigation, route }: any) {
               <TextInput
                 placeholder="Email"
                 style={styles.input}
-                onChangeText={handleChange("email")}
                 value={values.email}
+                onChangeText={handleChange("email")}
               />
               {touched.email && errors.email && (
                 <Text style={styles.error}>{errors.email}</Text>
               )}
 
               <TextInput
-                placeholder="Contact Number"
+                placeholder="Contact"
                 style={styles.input}
-                onChangeText={handleChange("contact")}
-                value={values.contact}
                 keyboardType="numeric"
+                value={values.contact}
+                onChangeText={handleChange("contact")}
               />
               {touched.contact && errors.contact && (
                 <Text style={styles.error}>{errors.contact}</Text>
@@ -93,15 +101,15 @@ export default function ApplicationFormScreen({ navigation, route }: any) {
                 placeholder="Why should we hire you?"
                 style={[styles.input, { height: 100 }]}
                 multiline
-                onChangeText={handleChange("reason")}
                 value={values.reason}
+                onChangeText={handleChange("reason")}
               />
               {touched.reason && errors.reason && (
                 <Text style={styles.error}>{errors.reason}</Text>
               )}
 
-              <Pressable style={styles.submitBtn} onPress={() => handleSubmit()}>
-                <Text style={styles.btnText}>Submit Application</Text>
+              <Pressable style={styles.submit} onPress={() => handleSubmit()}>
+                <Text style={styles.btnText}>Submit</Text>
               </Pressable>
             </View>
           )}

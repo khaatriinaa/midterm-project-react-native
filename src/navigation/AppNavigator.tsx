@@ -1,12 +1,12 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import JobFinderScreen from "../screens/JobFinder/JobFinderScreen";
 import SavedJobsScreen from "../screens/SavedJobs/SavedJobsScreen";
 import ApplicationFormScreen from "../screens/ApplicationForm/ApplicationFormScreen";
+import { RootStackParamList } from "./Props";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
   return (
