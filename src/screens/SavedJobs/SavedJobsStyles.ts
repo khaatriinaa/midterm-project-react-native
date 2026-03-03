@@ -2,8 +2,28 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   safeArea: { flex: 1 },
-  container: { flex: 1 },
-  listContent: { padding: 16, paddingTop: 12 },
+  header: {
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 24,
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  headerTitle: {
+    fontSize: 26,
+    fontWeight: "800",
+    color: "#ffffff",
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: "rgba(255,255,255,0.80)",
+    marginTop: 2,
+  },
+  container: { flex: 1, borderTopLeftRadius: 24, borderTopRightRadius: 24, marginTop: -12 },
+  listContent: { padding: 16, paddingTop: 16 },
   card: {
     padding: 18,
     marginBottom: 12,

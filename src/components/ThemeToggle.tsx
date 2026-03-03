@@ -7,7 +7,7 @@ export default function ThemeToggle() {
 
   return (
     <Pressable onPress={toggleTheme} style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-      <Text style={{ color: "#ffffff", fontSize: 14 }}>{isDark ? "☀️" : "🌙"}</Text>
+      <Text style={{ color: "#ffffff", fontSize: 14 }}></Text>
       <View
         style={{
           width: 46,

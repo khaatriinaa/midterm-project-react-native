@@ -26,11 +26,11 @@ export default StyleSheet.create({
   },
   listContent: {
     paddingHorizontal: 16,
-    paddingBottom: 100,
+    paddingBottom: 180,
   },
   savedJobButton: {
     position: "absolute",
-    bottom: 24,
+    bottom: 108,
     left: 20,
     right: 20,
     backgroundColor: "#2563EB",

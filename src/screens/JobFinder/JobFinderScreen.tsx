@@ -59,7 +59,7 @@ export default function JobFinderScreen({ navigation }: any) {
       <View style={[styles.header, { backgroundColor: t.headerBg }]}>
         <View style={styles.headerRow}>
           <View>
-            <Text style={styles.headerTitle}>Hello 👋</Text>
+            <Text style={styles.headerTitle}>Hello, User 👋</Text>
             <Text style={styles.headerSubtitle}>Find your dream job</Text>
           </View>
           <ThemeToggle />
@@ -84,10 +84,6 @@ export default function JobFinderScreen({ navigation }: any) {
           />
         )}
       />
-
-      <Pressable style={styles.savedJobButton} onPress={() => navigation.navigate("SavedJobs")}>
-        <Text style={styles.savedJobButtonText}>Saved Job</Text>
-      </Pressable>
     </View>
   );
 }

@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { View, FlatList, Text, Pressable, SafeAreaView } from "react-native";
+import { View, FlatList, Text, Pressable, SafeAreaView, Alert } from "react-native";
 import { JobsContext } from "../../context/JobsContext";
 import { ThemeContext } from "../../context/ThemeContext";
 import { lightTheme, darkTheme } from "../../styles/globalStyles";
+import ThemeToggle from "../../components/ThemeToggle";
 import styles from "./SavedJobsStyles";
 
 export default function SavedJobsScreen({ navigation }: any) {
@@ -10,8 +11,35 @@ export default function SavedJobsScreen({ navigation }: any) {
   const { isDark } = useContext(ThemeContext);
   const t = isDark ? darkTheme : lightTheme;
 
+  const handleRemove = (id: string, title: string) => {
+    Alert.alert(
+      "Remove Job",
+      `Are you sure you want to remove "${title}" from your saved jobs?`,
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Remove",
+          style: "destructive",
+          onPress: () => removeJob(id),
+        },
+      ]
+    );
+  };
+
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: t.background }]}>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: t.headerBg }]}>
+      {/* Header */}
+      <View style={[styles.header, { backgroundColor: t.headerBg }]}>
+        <View style={styles.headerRow}>
+          <View>
+            <Text style={styles.headerTitle}>Saved Jobs 🔖</Text>
+            <Text style={styles.headerSubtitle}>{savedJobs.length} job{savedJobs.length !== 1 ? "s" : ""} saved</Text>
+          </View>
+          <ThemeToggle />
+        </View>
+      </View>
+
+      {/* Content */}
       <View style={[styles.container, { backgroundColor: t.background }]}>
         {savedJobs.length === 0 && (
           <Text style={[styles.emptyText, { color: t.emptyText }]}>No saved jobs yet.</Text>
@@ -33,7 +61,7 @@ export default function SavedJobsScreen({ navigation }: any) {
                 </Pressable>
                 <Pressable
                   style={[styles.button, { backgroundColor: "#EF4444" }]}
-                  onPress={() => removeJob(item.id)}
+                  onPress={() => handleRemove(item.id, item.title)}
                 >
                   <Text style={styles.buttonText}>Remove</Text>
                 </Pressable>
