@@ -20,6 +20,9 @@ export const lightTheme = {
   logoBorder: "#E5E7EB",
   logoBg: "#F3F4F6",
   emptyText: "#9CA3AF",
+  tagBg: "#EFF6FF",
+  tagBorder: "#BFDBFE",
+  tagText: "#2563EB",
 };
 
 export const darkTheme = {
@@ -42,6 +45,9 @@ export const darkTheme = {
   logoBorder: "#334155",
   logoBg: "#0F172A",
   emptyText: "#64748B",
+  tagBg: "#1E3A5F",
+  tagBorder: "#2563EB",
+  tagText: "#60A5FA",
 };
 
 export type Theme = typeof lightTheme;
@@ -134,5 +140,23 @@ export default StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 3,
+  },
+  tagsScrollView: {
+    marginBottom: 14,
+  },
+  tagsContainer: {
+    flexDirection: "row",
+    gap: 8,
+    paddingRight: 4,
+  },
+  tag: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+    borderWidth: 1,
+  },
+  tagText: {
+    fontSize: 12,
+    fontWeight: "600",
   },
 });
