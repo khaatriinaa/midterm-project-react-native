@@ -7,6 +7,7 @@ import { View, Text } from "react-native";
 import JobFinderScreen from "../screens/JobFinder/JobFinderScreen";
 import SavedJobsScreen from "../screens/SavedJobs/SavedJobsScreen";
 import ApplicationFormScreen from "../screens/ApplicationForm/ApplicationFormScreen";
+import JobFinderInfoScreen from "../screens/JobFinderInfo/JobFinderInfoScreen";
 import { ThemeContext } from "../context/ThemeContext";
 import { lightTheme, darkTheme } from "../styles/globalStyles";
 
@@ -83,6 +84,11 @@ export default function AppNavigator() {
           name="ApplicationForm"
           component={ApplicationFormScreen}
           options={{ title: "Apply for Job" }}
+        />
+        <Stack.Screen
+          name="JobFinderInfo"
+          component={JobFinderInfoScreen}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

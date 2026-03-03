@@ -59,7 +59,7 @@ export default function JobFinderScreen({ navigation }: any) {
       <View style={[styles.header, { backgroundColor: t.headerBg }]}>
         <View style={styles.headerRow}>
           <View>
-            <Text style={styles.headerTitle}>Hello, User 👋</Text>
+            <Text style={styles.headerTitle}>Hello 👋</Text>
             <Text style={styles.headerSubtitle}>Find your dream job</Text>
           </View>
           <ThemeToggle />
@@ -80,6 +80,7 @@ export default function JobFinderScreen({ navigation }: any) {
         renderItem={({ item }) => (
           <JobCard
             job={item}
+            onPress={() => navigation.navigate("JobFinderInfo", { job: item })}
             onApply={() => navigation.navigate("ApplicationForm", { job: item, fromSaved: false })}
           />
         )}

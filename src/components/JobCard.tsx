@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import { View, Text, Pressable, Image, ScrollView } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import { Job } from "../types/JobTypes";
 import { JobsContext } from "../context/JobsContext";
 import { ThemeContext } from "../context/ThemeContext";
@@ -8,9 +8,10 @@ import styles, { lightTheme, darkTheme } from "../styles/globalStyles";
 interface Props {
   job: Job;
   onApply: () => void;
+  onPress: () => void;
 }
 
-export default function JobCard({ job, onApply }: Props) {
+export default function JobCard({ job, onApply, onPress }: Props) {
   const { saveJob, isSaved } = useContext(JobsContext);
   const { isDark } = useContext(ThemeContext);
   const t = isDark ? darkTheme : lightTheme;
@@ -30,16 +31,8 @@ export default function JobCard({ job, onApply }: Props) {
     return "Not specified";
   }, [job]);
 
-  const tags = useMemo(() => {
-    const result: string[] = [];
-    if (job.jobType) result.push(job.jobType);
-    if (job.workModel) result.push(job.workModel);
-    if (job.seniorityLevel) result.push(job.seniorityLevel);
-    if (job.tags && job.tags.length > 0) result.push(...job.tags);
-    return result;
-  }, [job]);
-
   return (
+    <Pressable onPress={onPress}>
     <View style={[styles.card, { backgroundColor: t.card, borderColor: t.cardBorder }]}>
       <View style={styles.cardHeader}>
         {job.companyLogo ? (
@@ -60,30 +53,10 @@ export default function JobCard({ job, onApply }: Props) {
           <Text style={[styles.companyName, { color: t.subtitle }]}>{job.companyName}</Text>
         </View>
       </View>
-
       <View style={styles.salaryLocationRow}>
         <Text style={[styles.salaryText, { color: t.salary }]}>{salaryText}</Text>
         <Text style={[styles.locationText, { color: t.muted }]}>{locationText}</Text>
       </View>
-
-      {tags.length > 0 && (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.tagsScrollView}
-          contentContainerStyle={styles.tagsContainer}
-        >
-          {tags.map((tag, index) => (
-            <View
-              key={index}
-              style={[styles.tag, { backgroundColor: t.tagBg, borderColor: t.tagBorder }]}
-            >
-              <Text style={[styles.tagText, { color: t.tagText }]}>{tag}</Text>
-            </View>
-          ))}
-        </ScrollView>
-      )}
-
       <View style={styles.buttonRow}>
         <Pressable
           style={[styles.button, { backgroundColor: saved ? t.muted : t.saveBtn }]}
@@ -97,5 +70,6 @@ export default function JobCard({ job, onApply }: Props) {
         </Pressable>
       </View>
     </View>
+    </Pressable>
   );
 }

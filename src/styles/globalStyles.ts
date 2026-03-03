@@ -141,22 +141,4 @@ export default StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
   },
-  tagsScrollView: {
-    marginBottom: 14,
-  },
-  tagsContainer: {
-    flexDirection: "row",
-    gap: 8,
-    paddingRight: 4,
-  },
-  tag: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 20,
-    borderWidth: 1,
-  },
-  tagText: {
-    fontSize: 12,
-    fontWeight: "600",
-  },
 });
