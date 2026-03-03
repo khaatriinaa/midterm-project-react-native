@@ -85,8 +85,6 @@ export default StyleSheet.create({
   benefitItem: { flexDirection: "row", alignItems: "flex-start", gap: 10, marginBottom: 8 },
   benefitDot: { width: 7, height: 7, borderRadius: 4, marginTop: 7, backgroundColor: "#2563EB" },
   benefitText: { fontSize: 14, lineHeight: 22, flex: 1 },
-  descBulletRow: { flexDirection: "row", alignItems: "flex-start", gap: 10, marginBottom: 6 },
-  descBulletDot: { width: 6, height: 6, borderRadius: 3, marginTop: 8 },
   bottomBar: {
     position: "absolute",
     bottom: 0,

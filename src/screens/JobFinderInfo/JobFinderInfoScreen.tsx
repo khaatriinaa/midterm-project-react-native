@@ -1,5 +1,6 @@
 import React, { useContext, useMemo } from "react";
-import { View, Text, ScrollView, Pressable, Image, SafeAreaView } from "react-native";
+import { View, Text, ScrollView, Pressable, Image, SafeAreaView, useWindowDimensions } from "react-native";
+import RenderHtml from "react-native-render-html";
 import { ThemeContext } from "../../context/ThemeContext";
 import { JobsContext } from "../../context/JobsContext";
 import { lightTheme, darkTheme } from "../../styles/globalStyles";
@@ -12,6 +13,8 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
   const { saveJob, isSaved } = useContext(JobsContext);
   const t = isDark ? darkTheme : lightTheme;
   const saved = isSaved(job.id);
+  const { width: contentWidth } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const salaryText = useMemo(() => {
     if (job.minSalary && job.maxSalary) {
@@ -116,7 +119,19 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
           <>
             <View style={[styles.divider, { backgroundColor: t.cardBorder }]} />
             <Text style={[styles.sectionTitle, { color: t.title }]}>About the Role</Text>
-            <Text style={[styles.sectionText, { color: t.subtitle }]}>{job.description}</Text>
+            <RenderHtml
+              contentWidth={contentWidth}
+              source={{ html: job.description }}
+              tagsStyles={{
+                p: { color: t.subtitle, fontSize: 14, lineHeight: 24, marginBottom: 8 },
+                li: { color: t.subtitle, fontSize: 14, lineHeight: 24 },
+                ul: { color: t.subtitle },
+                ol: { color: t.subtitle },
+                strong: { color: t.title },
+                b: { color: t.title },
+                a: { color: t.salary },
+              }}
+            />
           </>
         ) : null}
         {benefits.length > 0 && (
