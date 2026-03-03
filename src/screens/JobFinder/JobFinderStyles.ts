@@ -14,11 +14,15 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 40,
   },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   headerTitle: {
     fontSize: 28,
     fontWeight: "800",
     color: "#ffffff",
-    marginTop: 4,
   },
   headerSubtitle: {
     fontSize: 15,

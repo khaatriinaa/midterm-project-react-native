@@ -1,13 +1,20 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#F3F4F6",
+  },
   container: {
     flex: 1,
     backgroundColor: "#F3F4F6",
-    padding: 16,
   },
   darkContainer: {
     backgroundColor: "#111827",
+  },
+  listContent: {
+    padding: 16,
+    paddingTop: 12,
   },
   card: {
     padding: 18,

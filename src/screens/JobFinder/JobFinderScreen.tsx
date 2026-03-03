@@ -30,7 +30,6 @@ export default function JobFinderScreen({ navigation }: any) {
       const data = await fetchJobs();
       setJobs(data);
 
-      // 🔥 reapply search after refresh
       if (search.trim() === "") {
         setFilteredJobs(data);
       } else {
@@ -50,7 +49,6 @@ export default function JobFinderScreen({ navigation }: any) {
     loadJobs();
   }, []);
 
-  // 🔥 When returning from Apply screen
   useFocusEffect(
     useCallback(() => {
       if (search.trim() === "") {
@@ -61,11 +59,9 @@ export default function JobFinderScreen({ navigation }: any) {
 
   const handleSearch = (text: string) => {
     setSearch(text);
-
     const filtered = jobs.filter(job =>
       job.title?.toLowerCase().includes(text.toLowerCase())
     );
-
     setFilteredJobs(filtered);
   };
 
@@ -73,9 +69,14 @@ export default function JobFinderScreen({ navigation }: any) {
     <View style={[styles.container, isDark && styles.darkContainer]}>
       {/* Blue Header */}
       <View style={styles.header}>
-        <ThemeToggle />
-        <Text style={styles.headerTitle}>Hello 👋</Text>
-        <Text style={styles.headerSubtitle}>Find your dream job</Text>
+        {/* Hello + Toggle on the same row */}
+        <View style={styles.headerRow}>
+          <View>
+            <Text style={styles.headerTitle}>Hello, User 👋</Text>
+            <Text style={styles.headerSubtitle}>Find your dream job</Text>
+          </View>
+          <ThemeToggle />
+        </View>
       </View>
 
       {/* Search bar overlapping header */}
