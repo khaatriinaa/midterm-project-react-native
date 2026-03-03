@@ -1,19 +1,63 @@
 import { StyleSheet } from "react-native";
 
+export const lightTheme = {
+  background: "#F3F4F6",
+  card: "#ffffff",
+  cardBorder: "#E5E7EB",
+  title: "#111827",
+  subtitle: "#6B7280",
+  muted: "#9CA3AF",
+  salary: "#2563EB",
+  input: "#ffffff",
+  inputText: "#111827",
+  inputPlaceholder: "#9CA3AF",
+  saveBtn: "#374151",
+  applyBtn: "#2563EB",
+  headerBg: "#2563EB",
+  fallbackLogoBg: "#DBEAFE",
+  fallbackLogoText: "#2563EB",
+  fallbackLogoBorder: "#BFDBFE",
+  logoBorder: "#E5E7EB",
+  logoBg: "#F3F4F6",
+  emptyText: "#9CA3AF",
+};
+
+export const darkTheme = {
+  background: "#0F172A",
+  card: "#1E293B",
+  cardBorder: "#334155",
+  title: "#F1F5F9",
+  subtitle: "#94A3B8",
+  muted: "#64748B",
+  salary: "#60A5FA",
+  input: "#1E293B",
+  inputText: "#F1F5F9",
+  inputPlaceholder: "#64748B",
+  saveBtn: "#475569",
+  applyBtn: "#2563EB",
+  headerBg: "#1E3A5F",
+  fallbackLogoBg: "#1E3A5F",
+  fallbackLogoText: "#60A5FA",
+  fallbackLogoBorder: "#2563EB",
+  logoBorder: "#334155",
+  logoBg: "#0F172A",
+  emptyText: "#64748B",
+};
+
+export type Theme = typeof lightTheme;
+
 export default StyleSheet.create({
   card: {
     padding: 18,
     marginVertical: 8,
-    backgroundColor: "#ffffff",
     borderRadius: 16,
+    borderWidth: 1,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 3,
   },
-
-  // Logo + title/company row
   cardHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -24,40 +68,31 @@ export default StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 10,
-    backgroundColor: "#F3F4F6",
     borderWidth: 1,
-    borderColor: "#E5E7EB",
   },
   companyLogoFallback: {
     width: 48,
     height: 48,
     borderRadius: 10,
-    backgroundColor: "#DBEAFE",
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#BFDBFE",
   },
   companyLogoFallbackText: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#2563EB",
   },
   cardHeaderText: {
     flex: 1,
   },
-
   title: {
     fontSize: 17,
     fontWeight: "700",
-    color: "#111827",
     marginBottom: 2,
   },
   companyName: {
     fontSize: 14,
-    color: "#6B7280",
   },
-
   salaryLocationRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -67,13 +102,10 @@ export default StyleSheet.create({
   salaryText: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#2563EB",
   },
   locationText: {
     fontSize: 13,
-    color: "#9CA3AF",
   },
-
   buttonRow: {
     flexDirection: "row",
     gap: 10,
@@ -84,13 +116,6 @@ export default StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#2563EB",
-  },
-  saveButton: {
-    backgroundColor: "#374151",
-  },
-  applyButton: {
-    backgroundColor: "#2563EB",
   },
   buttonText: {
     color: "#fff",
@@ -98,34 +123,16 @@ export default StyleSheet.create({
     fontWeight: "600",
     fontSize: 15,
   },
-
   searchInput: {
     borderWidth: 0,
-    backgroundColor: "#ffffff",
     borderRadius: 14,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 15,
-    color: "#111827",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 3,
-  },
-  toggleButton: {
-    alignSelf: "flex-end",
-    marginBottom: 8,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    paddingHorizontal: 14,
-    paddingVertical: 7,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.4)",
-  },
-  toggleButtonText: {
-    color: "#ffffff",
-    fontWeight: "600",
-    fontSize: 13,
   },
 });
