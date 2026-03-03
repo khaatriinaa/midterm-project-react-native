@@ -21,26 +21,28 @@ export default function SavedJobsScreen({ navigation }: any) {
         renderItem={({ item }) => (
           <View style={styles.card}>
             <Text style={styles.title}>{item.title}</Text>
-            <Text>{item.companyName}</Text>
+            <Text style={styles.companyName}>{item.companyName}</Text>
 
-            <Pressable
-              style={styles.button}
-              onPress={() =>
-                navigation.navigate("ApplicationForm", {
-                  job: item,
-                  fromSaved: true,
-                })
-              }
-            >
-              <Text style={styles.buttonText}>Apply</Text>
-            </Pressable>
+            <View style={styles.buttonRow}>
+              <Pressable
+                style={styles.button}
+                onPress={() =>
+                  navigation.navigate("ApplicationForm", {
+                    job: item,
+                    fromSaved: true,
+                  })
+                }
+              >
+                <Text style={styles.buttonText}>Apply</Text>
+              </Pressable>
 
-            <Pressable
-              style={[styles.button, { backgroundColor: "#d9534f" }]}
-              onPress={() => removeJob(item.id)}
-            >
-              <Text style={styles.buttonText}>Remove</Text>
-            </Pressable>
+              <Pressable
+                style={[styles.button, { backgroundColor: "#EF4444" }]}
+                onPress={() => removeJob(item.id)}
+              >
+                <Text style={styles.buttonText}>Remove</Text>
+              </Pressable>
+            </View>
           </View>
         )}
       />

@@ -9,9 +9,10 @@ interface Props {
 
 export default function SearchBar({ value, onChange }: Props) {
   return (
-    <View>
+    <View style={{ marginTop: -20, marginBottom: 16, zIndex: 10 }}>
       <TextInput
-        placeholder="Search by Job Title"
+        placeholder="Search job, company..."
+        placeholderTextColor="#9CA3AF"
         value={value}
         onChangeText={onChange}
         style={styles.searchInput}

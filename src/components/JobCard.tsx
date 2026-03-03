@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import { Job } from "../types/JobTypes";
 import { JobsContext } from "../context/JobsContext";
 import styles from "../styles/globalStyles";
@@ -19,7 +19,7 @@ export default function JobCard({ job, onApply }: Props) {
     if (job.minSalary && job.maxSalary) {
       return `${job.minSalary} - ${job.maxSalary} ${job.currency ?? ""}`;
     }
-    return "Salary not specified";
+    return "Not specified";
   }, [job]);
 
   // ✅ Format locations safely
@@ -27,32 +27,56 @@ export default function JobCard({ job, onApply }: Props) {
     if (job.locations && job.locations.length > 0) {
       return job.locations.join(", ");
     }
-    return "Location not specified";
+    return "Not specified";
   }, [job]);
 
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>{job.title}</Text>
-      <Text>{job.companyName}</Text>
-      <Text>{salaryText}</Text>
-      <Text>{locationText}</Text>
+      {/* Company Header Row */}
+      <View style={styles.cardHeader}>
+        {job.companyLogo ? (
+          <Image
+            source={{ uri: job.companyLogo }}
+            style={styles.companyLogo}
+            resizeMode="contain"
+          />
+        ) : (
+          <View style={styles.companyLogoFallback}>
+            <Text style={styles.companyLogoFallbackText}>
+              {job.companyName?.[0] ?? "?"}
+            </Text>
+          </View>
+        )}
+        <View style={styles.cardHeaderText}>
+          <Text style={styles.title}>{job.title}</Text>
+          <Text style={styles.companyName}>{job.companyName}</Text>
+        </View>
+      </View>
 
-      <Pressable
-        style={[
-          styles.button,
-          saved && { backgroundColor: "#777" }, // visually disabled
-        ]}
-        onPress={() => saveJob(job)}
-        disabled={saved}
-      >
-        <Text style={styles.buttonText}>
-          {saved ? "Saved" : "Save Job"}
-        </Text>
-      </Pressable>
+      <View style={styles.salaryLocationRow}>
+        <Text style={styles.salaryText}>{salaryText}</Text>
+        <Text style={styles.locationText}>{locationText}</Text>
+      </View>
 
-      <Pressable style={styles.button} onPress={onApply}>
-        <Text style={styles.buttonText}>Apply</Text>
-      </Pressable>
+      <View style={styles.buttonRow}>
+        <Pressable
+          style={[
+            styles.button,
+            styles.saveButton,
+            saved && { backgroundColor: "#9CA3AF" },
+          ]}
+          onPress={() => saveJob(job)}
+          disabled={saved}
+        >
+          <Text style={styles.buttonText}>
+            {saved ? "Saved" : "Save"}
+          </Text>
+        </Pressable>
+
+        <Pressable style={[styles.button, styles.applyButton]} onPress={onApply}>
+          <Text style={styles.buttonText}>Apply</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

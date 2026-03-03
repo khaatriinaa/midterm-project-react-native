@@ -8,8 +8,8 @@ export default function ThemeToggle() {
 
   return (
     <Pressable style={styles.toggleButton} onPress={toggleTheme}>
-      <Text style={styles.buttonText}>
-        {isDark ? "Light Mode" : "Dark Mode"}
+      <Text style={styles.toggleButtonText}>
+        {isDark ? "☀️ Light Mode" : "🌙 Dark Mode"}
       </Text>
     </Pressable>
   );

@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
+  ScrollView,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -66,45 +67,65 @@ export default function ApplicationFormScreen({ route, navigation }: any) {
             errors,
             touched,
           }) => (
-            <View style={styles.container}>
+            <ScrollView
+              style={styles.container}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+            >
               <TextInput
                 placeholder="Full Name"
+                placeholderTextColor="#9CA3AF"
                 onChangeText={handleChange("name")}
                 value={values.name}
                 style={styles.input}
               />
-              {touched.name && <Text>{errors.name}</Text>}
+              {touched.name && errors.name && (
+                <Text style={styles.errorText}>{errors.name}</Text>
+              )}
 
               <TextInput
                 placeholder="Email"
+                placeholderTextColor="#9CA3AF"
                 onChangeText={handleChange("email")}
                 value={values.email}
                 style={styles.input}
+                keyboardType="email-address"
+                autoCapitalize="none"
               />
-              {touched.email && <Text>{errors.email}</Text>}
+              {touched.email && errors.email && (
+                <Text style={styles.errorText}>{errors.email}</Text>
+              )}
 
               <TextInput
                 placeholder="Contact Number"
+                placeholderTextColor="#9CA3AF"
                 onChangeText={handleChange("contact")}
                 value={values.contact}
                 style={styles.input}
                 keyboardType="numeric"
               />
-              {touched.contact && <Text>{errors.contact}</Text>}
+              {touched.contact && errors.contact && (
+                <Text style={styles.errorText}>{errors.contact}</Text>
+              )}
 
               <TextInput
                 placeholder="Why should we hire you?"
+                placeholderTextColor="#9CA3AF"
                 onChangeText={handleChange("reason")}
                 value={values.reason}
-                style={styles.input}
+                style={[styles.input, { minHeight: 100, textAlignVertical: "top" }]}
                 multiline
               />
-              {touched.reason && <Text>{errors.reason}</Text>}
+              {touched.reason && errors.reason && (
+                <Text style={styles.errorText}>{errors.reason}</Text>
+              )}
 
               <Pressable style={styles.button} onPress={() => handleSubmit()}>
-                <Text style={styles.buttonText}>Submit</Text>
+                <Text style={styles.buttonText}>Submit Application</Text>
               </Pressable>
-            </View>
+
+              <View style={{ height: 40 }} />
+            </ScrollView>
           )}
         </Formik>
       </TouchableWithoutFeedback>

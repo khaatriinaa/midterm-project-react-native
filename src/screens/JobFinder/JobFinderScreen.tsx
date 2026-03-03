@@ -3,6 +3,8 @@ import {
   View,
   FlatList,
   RefreshControl,
+  Text,
+  Pressable,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -69,12 +71,22 @@ export default function JobFinderScreen({ navigation }: any) {
 
   return (
     <View style={[styles.container, isDark && styles.darkContainer]}>
-      <ThemeToggle />
-      <SearchBar value={search} onChange={handleSearch} />
+      {/* Blue Header */}
+      <View style={styles.header}>
+        <ThemeToggle />
+        <Text style={styles.headerTitle}>Hello 👋</Text>
+        <Text style={styles.headerSubtitle}>Find your dream job</Text>
+      </View>
+
+      {/* Search bar overlapping header */}
+      <View style={{ paddingHorizontal: 16 }}>
+        <SearchBar value={search} onChange={handleSearch} />
+      </View>
 
       <FlatList
         data={filteredJobs}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.listContent}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={loadJobs} />
         }

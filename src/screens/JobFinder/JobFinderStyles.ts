@@ -3,9 +3,50 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
+    backgroundColor: "#F3F4F6",
   },
   darkContainer: {
-    backgroundColor: "#121212",
+    backgroundColor: "#111827",
+  },
+  header: {
+    backgroundColor: "#2563EB",
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: "800",
+    color: "#ffffff",
+    marginTop: 4,
+  },
+  headerSubtitle: {
+    fontSize: 15,
+    color: "rgba(255,255,255,0.85)",
+    marginTop: 2,
+  },
+  listContent: {
+    paddingHorizontal: 16,
+    paddingBottom: 100,
+  },
+  savedJobButton: {
+    position: "absolute",
+    bottom: 24,
+    left: 20,
+    right: 20,
+    backgroundColor: "#2563EB",
+    paddingVertical: 16,
+    borderRadius: 16,
+    alignItems: "center",
+    shadowColor: "#2563EB",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.35,
+    shadowRadius: 10,
+    elevation: 6,
+  },
+  savedJobButtonText: {
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });
