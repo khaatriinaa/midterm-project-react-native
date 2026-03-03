@@ -1,23 +1,47 @@
 import React, { useContext } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text, Pressable } from "react-native";
+
 import { JobsContext } from "../../context/JobsContext";
-import JobCard from "../../components/JobCard";
+import { ThemeContext } from "../../context/ThemeContext";
+import styles from "./SavedJobsStyles";
 
 export default function SavedJobsScreen({ navigation }: any) {
-  const { savedJobs } = useContext(JobsContext);
+  const { savedJobs, removeJob } = useContext(JobsContext);
+  const { isDark } = useContext(ThemeContext);
 
   return (
-    <View style={{ flex: 1, padding: 20 }}>
+    <View style={[styles.container, isDark && styles.darkContainer]}>
+      {savedJobs.length === 0 && (
+        <Text style={styles.emptyText}>No saved jobs yet.</Text>
+      )}
+
       <FlatList
         data={savedJobs}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <JobCard
-            job={item}
-            onApply={() =>
-              navigation.navigate("ApplicationForm", { fromSaved: true })
-            }
-          />
+          <View style={styles.card}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text>{item.companyName}</Text>
+
+            <Pressable
+              style={styles.button}
+              onPress={() =>
+                navigation.navigate("ApplicationForm", {
+                  job: item,
+                  fromSaved: true,
+                })
+              }
+            >
+              <Text style={styles.buttonText}>Apply</Text>
+            </Pressable>
+
+            <Pressable
+              style={[styles.button, { backgroundColor: "#d9534f" }]}
+              onPress={() => removeJob(item.id)}
+            >
+              <Text style={styles.buttonText}>Remove</Text>
+            </Pressable>
+          </View>
         )}
       />
     </View>

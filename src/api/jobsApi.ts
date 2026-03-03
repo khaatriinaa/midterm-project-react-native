@@ -1,11 +1,11 @@
 import { Job } from "../types/JobTypes";
-import { v4 as uuidv4 } from "uuid";
+import { generateUUID } from "../utils/generateUUID";
+
+const BASE_URL = "https://empllo.com/api/v1";
 
 export const fetchJobs = async (): Promise<Job[]> => {
   try {
-    const response = await fetch("https://empllo.com/api/v1");
-
-    console.log("Status:", response.status);
+    const response = await fetch(BASE_URL);
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -13,20 +13,40 @@ export const fetchJobs = async (): Promise<Job[]> => {
 
     const data = await response.json();
 
-    console.log("API DATA:", data);
+    // ✅ The correct array from API
+    const jobsArray = data.jobs;
 
-    const jobsArray = Array.isArray(data) ? data : data.jobs ?? [];
+    if (!Array.isArray(jobsArray)) {
+      console.warn("Jobs array not found:", data);
+      return [];
+    }
 
-    return jobsArray.map((job: any) => ({
-      id: uuidv4(),
-      title: job.title ?? "No Title",
-      company: job.company ?? "Unknown Company",
-      salary: job.salary ?? "Not specified",
-      location: job.location ?? "Not specified",
-      description: job.description ?? "",
+    const jobsWithId: Job[] = jobsArray.map((job: any) => ({
+      id: job.guid, // use stable unique identifier
+      // 🔥 Fetch ALL API fields
+      title: job.title,
+      mainCategory: job.mainCategory,
+      companyName: job.companyName,
+      companyLogo: job.companyLogo,
+      jobType: job.jobType,
+      workModel: job.workModel,
+      seniorityLevel: job.seniorityLevel,
+      minSalary: job.minSalary,
+      maxSalary: job.maxSalary,
+      currency: job.currency,
+      locations: job.locations,
+      tags: job.tags,
+      description: job.description,
+      benefits: job.benefits,
+      pubDate: job.pubDate,
+      expiryDate: job.expiryDate,
+      applicationLink: job.applicationLink,
+      guid: job.guid,
     }));
+
+    return jobsWithId;
   } catch (error) {
-    console.log("API ERROR:", error);
+    console.error("Error fetching jobs:", error);
     return [];
   }
 };

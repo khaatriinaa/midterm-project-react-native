@@ -1,53 +1,80 @@
-import React, { useState, useCallback } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import {
   View,
-  Text,
   FlatList,
-  Pressable,
   RefreshControl,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+
 import { fetchJobs } from "../../api/jobsApi";
 import { Job } from "../../types/JobTypes";
-import styles from "./JobFinderStyles";
 import JobCard from "../../components/JobCard";
 import SearchBar from "../../components/SearchBar";
+import ThemeToggle from "../../components/ThemeToggle";
+import styles from "./JobFinderStyles";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export default function JobFinderScreen({ navigation }: any) {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
   const [search, setSearch] = useState("");
   const [refreshing, setRefreshing] = useState(false);
 
+  const { isDark } = useContext(ThemeContext);
+
   const loadJobs = async () => {
-    setRefreshing(true);
-    const data = await fetchJobs();
-    setJobs(data);
-    setRefreshing(false);
+    try {
+      setRefreshing(true);
+      const data = await fetchJobs();
+      setJobs(data);
+
+      // 🔥 reapply search after refresh
+      if (search.trim() === "") {
+        setFilteredJobs(data);
+      } else {
+        const filtered = data.filter(job =>
+          job.title?.toLowerCase().includes(search.toLowerCase())
+        );
+        setFilteredJobs(filtered);
+      }
+    } catch (error) {
+      console.log("Error loading jobs:", error);
+    } finally {
+      setRefreshing(false);
+    }
   };
 
+  useEffect(() => {
+    loadJobs();
+  }, []);
+
+  // 🔥 When returning from Apply screen
   useFocusEffect(
     useCallback(() => {
-      loadJobs();
-    }, [])
+      if (search.trim() === "") {
+        setFilteredJobs(jobs);
+      }
+    }, [jobs])
   );
 
-  const filtered = jobs.filter(job =>
-    job.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const handleSearch = (text: string) => {
+    setSearch(text);
+
+    const filtered = jobs.filter(job =>
+      job.title?.toLowerCase().includes(text.toLowerCase())
+    );
+
+    setFilteredJobs(filtered);
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.greeting}>Hello 👋</Text>
-        <Text style={styles.greeting}>Find your dream job</Text>
-      </View>
-
-      <SearchBar value={search} onChange={setSearch} />
+    <View style={[styles.container, isDark && styles.darkContainer]}>
+      <ThemeToggle />
+      <SearchBar value={search} onChange={handleSearch} />
 
       <FlatList
-        contentContainerStyle={styles.list}
-        data={filtered}
-        keyExtractor={item => item.id}
+        data={filteredJobs}
+        keyExtractor={(item) => item.id}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={loadJobs} />
         }
@@ -55,18 +82,14 @@ export default function JobFinderScreen({ navigation }: any) {
           <JobCard
             job={item}
             onApply={() =>
-              navigation.navigate("ApplicationForm", { fromSaved: false })
+              navigation.navigate("ApplicationForm", {
+                job: item,
+                fromSaved: false,
+              })
             }
           />
         )}
       />
-
-      <Pressable
-        style={styles.savedNav}
-        onPress={() => navigation.navigate("SavedJobs")}
-      >
-        <Text style={styles.btnText}>Saved Job</Text>
-      </Pressable>
     </View>
   );
 }

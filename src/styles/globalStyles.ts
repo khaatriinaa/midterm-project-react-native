@@ -1,52 +1,39 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  screenContainer: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#f4f6f8",
-  },
-
   card: {
-    backgroundColor: "#ffffff",
     padding: 15,
+    marginVertical: 10,
+    backgroundColor: "#f5f5f5",
     borderRadius: 12,
-    elevation: 3,
-    marginBottom: 12,
   },
-
-  heading: {
+  title: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#1a1a1a",
   },
-
-  subText: {
-    fontSize: 14,
-    color: "#555",
-  },
-
-  primaryButton: {
-    backgroundColor: "#1976D2",
-    paddingVertical: 10,
+  button: {
+    marginTop: 10,
+    backgroundColor: "#007bff",
+    padding: 10,
     borderRadius: 8,
   },
-
-  successButton: {
-    backgroundColor: "#2E7D32",
-    paddingVertical: 10,
-    borderRadius: 8,
-  },
-
-  dangerButton: {
-    backgroundColor: "#C62828",
-    paddingVertical: 10,
-    borderRadius: 8,
-  },
-
   buttonText: {
-    color: "#ffffff",
+    color: "#fff",
     textAlign: "center",
     fontWeight: "600",
+  },
+  searchInput: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 10,
+  },
+  toggleButton: {
+    alignSelf: "flex-end",
+    marginBottom: 10,
+    backgroundColor: "#444",
+    padding: 8,
+    borderRadius: 8,
   },
 });

@@ -1,61 +1,62 @@
 import React from "react";
 import {
   View,
+  Text,
   TextInput,
   Pressable,
-  Text,
   Alert,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  Platform,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styles from "./ApplicationFormStyles";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ApplicationFormProps } from "../../navigation/Props";
 
-const schema = Yup.object({
-  name: Yup.string()
-    .min(3, "Min 3 characters")
-    .required("Required"),
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Required"),
+const schema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string().email("Invalid email").required("Email required"),
   contact: Yup.string()
-    .matches(/^[0-9]{11}$/, "11 digits required")
-    .required("Required"),
-  reason: Yup.string()
-    .min(10, "Min 10 characters")
-    .required("Required"),
+    .matches(/^[0-9]+$/, "Numbers only")
+    .min(10)
+    .required("Contact required"),
+  reason: Yup.string().min(10).required("Required"),
 });
 
-export default function ApplicationFormScreen({ navigation, route }: ApplicationFormProps) {
-  const fromSaved = route.params?.fromSaved;
+export default function ApplicationFormScreen({ route, navigation }: any) {
+  const { fromSaved } = route.params;
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      style={{ flex: 1 }}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Formik
           initialValues={{ name: "", email: "", contact: "", reason: "" }}
           validationSchema={schema}
           onSubmit={(values, { resetForm }) => {
-            Alert.alert("Application Sent", "We will contact you", [
-              {
-                text: "Okay",
-                onPress: () => {
-                  resetForm();
-                  if (fromSaved) {
-                    navigation.reset({
-                      index: 0,
-                      routes: [{ name: "JobFinder" }],
-                    });
-                  } else {
-                    navigation.goBack();
-                  }
+            Alert.alert(
+              "Application Submitted",
+              "Your application has been sent.",
+              [
+                {
+                  text: "Okay",
+                  onPress: () => {
+                    resetForm();
+                    if (fromSaved) {
+                      navigation.reset({
+                        index: 0,
+                        routes: [{ name: "Main" }],
+                      });
+                    } else {
+                      navigation.goBack();
+                    }
+                  },
                 },
-              },
-            ]);
+              ]
+            );
           }}
         >
           {({
@@ -68,48 +69,40 @@ export default function ApplicationFormScreen({ navigation, route }: Application
             <View style={styles.container}>
               <TextInput
                 placeholder="Full Name"
-                style={styles.input}
-                value={values.name}
                 onChangeText={handleChange("name")}
+                value={values.name}
+                style={styles.input}
               />
-              {touched.name && errors.name && (
-                <Text style={styles.error}>{errors.name}</Text>
-              )}
+              {touched.name && <Text>{errors.name}</Text>}
 
               <TextInput
                 placeholder="Email"
-                style={styles.input}
-                value={values.email}
                 onChangeText={handleChange("email")}
+                value={values.email}
+                style={styles.input}
               />
-              {touched.email && errors.email && (
-                <Text style={styles.error}>{errors.email}</Text>
-              )}
+              {touched.email && <Text>{errors.email}</Text>}
 
               <TextInput
-                placeholder="Contact"
+                placeholder="Contact Number"
+                onChangeText={handleChange("contact")}
+                value={values.contact}
                 style={styles.input}
                 keyboardType="numeric"
-                value={values.contact}
-                onChangeText={handleChange("contact")}
               />
-              {touched.contact && errors.contact && (
-                <Text style={styles.error}>{errors.contact}</Text>
-              )}
+              {touched.contact && <Text>{errors.contact}</Text>}
 
               <TextInput
                 placeholder="Why should we hire you?"
-                style={[styles.input, { height: 100 }]}
-                multiline
-                value={values.reason}
                 onChangeText={handleChange("reason")}
+                value={values.reason}
+                style={styles.input}
+                multiline
               />
-              {touched.reason && errors.reason && (
-                <Text style={styles.error}>{errors.reason}</Text>
-              )}
+              {touched.reason && <Text>{errors.reason}</Text>}
 
-              <Pressable style={styles.submit} onPress={() => handleSubmit()}>
-                <Text style={styles.btnText}>Submit</Text>
+              <Pressable style={styles.button} onPress={() => handleSubmit()}>
+                <Text style={styles.buttonText}>Submit</Text>
               </Pressable>
             </View>
           )}
