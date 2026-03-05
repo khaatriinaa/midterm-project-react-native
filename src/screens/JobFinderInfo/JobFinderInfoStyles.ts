@@ -4,15 +4,46 @@ export default StyleSheet.create({
   container: { flex: 1 },
 
   hero: {
-    paddingTop: 16,
+    paddingTop: 6,
     paddingHorizontal: 20,
-    paddingBottom: 24,
+    paddingBottom: 20,
+    overflow: "hidden",
   },
+
+  // Decorative bubbles
+  heroBubble1: {
+    position: "absolute",
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: "rgba(255,255,255,0.07)",
+    top: -60,
+    right: -40,
+  },
+  heroBubble2: {
+    position: "absolute",
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: "rgba(255,255,255,0.05)",
+    top: 30,
+    right: 60,
+  },
+  heroBubble3: {
+    position: "absolute",
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: "rgba(255,255,255,0.06)",
+    bottom: 20,
+    left: -20,
+  },
+
   heroTopRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 12,
+    marginBottom: 10,
   },
   backBtn: {
     width: 38,
@@ -22,40 +53,65 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  backBtnText: { fontSize: 22, color: "#fff", fontWeight: "300" },
-  heroCompany: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 14,
+  backBtnText: { fontSize: 20, color: "#fff", fontWeight: "400" },
+
+  // Centered logo ring
+  heroLogoWrap: {
+    alignSelf: "center",
     marginBottom: 14,
+    padding: 4,
+    borderRadius: 26,
+    backgroundColor: "rgba(255,255,255,0.15)",
+    borderWidth: 1.5,
+    borderColor: "rgba(255,255,255,0.3)",
   },
   heroLogo: {
-    width: 60,
-    height: 60,
-    borderRadius: 14,
-    borderWidth: 2,
-    borderColor: "rgba(255,255,255,0.4)",
+    width: 72,
+    height: 72,
+    borderRadius: 20,
   },
   heroLogoFallback: {
-    width: 60,
-    height: 60,
-    borderRadius: 14,
+    width: 72,
+    height: 72,
+    borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 2,
-    borderColor: "rgba(255,255,255,0.4)",
     backgroundColor: "rgba(255,255,255,0.2)",
   },
-  heroLogoFallbackText: { fontSize: 24, fontWeight: "800", color: "#fff" },
-  heroTitleBlock: { flex: 1 },
-  heroJobTitle: { fontSize: 19, fontWeight: "800", color: "#ffffff", flexWrap: "wrap" },
-  heroCompanyName: { fontSize: 13, color: "rgba(255,255,255,0.80)", marginTop: 3 },
-  metaRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  heroLogoFallbackText: { fontSize: 28, fontWeight: "800", color: "#fff" },
+
+  // Centered text
+  heroJobTitle: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#ffffff",
+    textAlign: "center",
+    marginBottom: 4,
+    paddingHorizontal: 8,
+  },
+  heroCompanyName: {
+    fontSize: 13,
+    color: "rgba(255,255,255,0.75)",
+    textAlign: "center",
+    marginBottom: 0,
+  },
+
+  // Pills row centered
+  metaRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    justifyContent: "center",
+    marginTop: 10,
+    marginBottom: 10,
+  },
   metaPill: {
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
     backgroundColor: "rgba(255,255,255,0.18)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.2)",
   },
   metaPillText: { fontSize: 12, fontWeight: "600", color: "rgba(255,255,255,0.95)" },
 
@@ -141,4 +197,18 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   bottomBtnText: { color: "#fff", fontWeight: "700", fontSize: 15 },
+  appliedBadge: {
+    alignSelf: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: "#16A34A",
+    paddingHorizontal: 14,
+    paddingVertical: 5,
+    borderRadius: 20,
+  },
+  appliedBadgeText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "700",
+  },
 });

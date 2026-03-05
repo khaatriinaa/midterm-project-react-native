@@ -10,9 +10,10 @@ import styles from "./JobFinderInfoStyles";
 export default function JobFinderInfoScreen({ route, navigation }: any) {
   const { job } = route.params;
   const { isDark } = useContext(ThemeContext);
-  const { saveJob, isSaved } = useContext(JobsContext);
+  const { saveJob, isSaved, isApplied } = useContext(JobsContext);
   const t = isDark ? darkTheme : lightTheme;
   const saved = isSaved(job.id);
+  const applied = isApplied(job.id);
   const { width: contentWidth } = useWindowDimensions();
 
   const salaryText = useMemo(() => {
@@ -41,15 +42,24 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: t.headerBg }]}>
 
-      {/* Hero */}
+      {/* ── Hero Header ── */}
       <View style={[styles.hero, { backgroundColor: t.headerBg }]}>
+
+        {/* Decorative background bubbles */}
+        <View style={styles.heroBubble1} />
+        <View style={styles.heroBubble2} />
+        <View style={styles.heroBubble3} />
+
+        {/* Back + Toggle row */}
         <View style={styles.heroTopRow}>
           <Pressable style={styles.backBtn} onPress={() => navigation.goBack()}>
             <Text style={styles.backBtnText}>{"←"}</Text>
           </Pressable>
           <ThemeToggle />
         </View>
-        <View style={styles.heroCompany}>
+
+        {/* Centered logo */}
+        <View style={styles.heroLogoWrap}>
           {job.companyLogo ? (
             <Image source={{ uri: job.companyLogo }} style={styles.heroLogo} resizeMode="contain" />
           ) : (
@@ -57,11 +67,18 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
               <Text style={styles.heroLogoFallbackText}>{job.companyName?.[0] ?? "?"}</Text>
             </View>
           )}
-          <View style={styles.heroTitleBlock}>
-            <Text style={styles.heroJobTitle}>{job.title}</Text>
-            <Text style={styles.heroCompanyName}>{job.companyName}</Text>
-          </View>
         </View>
+
+        {/* Centered title block */}
+        <Text style={styles.heroJobTitle}>{job.title}</Text>
+        <Text style={styles.heroCompanyName}>{job.companyName}</Text>
+        {applied && (
+          <View style={styles.appliedBadge}>
+            <Text style={styles.appliedBadgeText}>✓ Applied</Text>
+          </View>
+        )}
+
+        {/* Meta pills */}
         <View style={styles.metaRow}>
           {job.locations && job.locations.length > 0 && (
             <View style={styles.metaPill}>
@@ -256,10 +273,11 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
           <Text style={styles.bottomBtnText}>{saved ? "Saved" : "Save Job"}</Text>
         </Pressable>
         <Pressable
-          style={[styles.bottomBtn, { backgroundColor: t.applyBtn }]}
+          style={[styles.bottomBtn, { backgroundColor: applied ? "#16A34A" : t.applyBtn }]}
           onPress={() => navigation.navigate("ApplicationForm", { job, fromSaved: false })}
+          disabled={applied}
         >
-          <Text style={styles.bottomBtnText}>Apply Now</Text>
+          <Text style={styles.bottomBtnText}>{applied ? "✓ Applied" : "Apply Now"}</Text>
         </Pressable>
       </View>
 

@@ -12,10 +12,11 @@ interface Props {
 }
 
 export default function JobCard({ job, onApply, onPress }: Props) {
-  const { saveJob, isSaved } = useContext(JobsContext);
+  const { saveJob, isSaved, isApplied } = useContext(JobsContext);
   const { isDark } = useContext(ThemeContext);
   const t = isDark ? darkTheme : lightTheme;
   const saved = isSaved(job.id);
+  const applied = isApplied(job.id);
 
   const salaryText = useMemo(() => {
     if (job.minSalary && job.maxSalary) {
@@ -61,7 +62,14 @@ export default function JobCard({ job, onApply, onPress }: Props) {
           )}
           <View style={styles.cardHeaderText}>
             <Text style={[styles.title, { color: t.title }]}>{job.title}</Text>
-            <Text style={[styles.companyName, { color: t.subtitle }]}>{job.companyName}</Text>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+              <Text style={[styles.companyName, { color: t.subtitle }]}>{job.companyName}</Text>
+              {applied && (
+                <View style={{ backgroundColor: "#16A34A", paddingHorizontal: 8, paddingVertical: 2, borderRadius: 20 }}>
+                  <Text style={{ color: "#fff", fontSize: 11, fontWeight: "700" }}>✓ Applied</Text>
+                </View>
+              )}
+            </View>
           </View>
         </View>
 
@@ -96,8 +104,12 @@ export default function JobCard({ job, onApply, onPress }: Props) {
         >
           <Text style={styles.buttonText}>{saved ? "Saved" : "Save"}</Text>
         </Pressable>
-        <Pressable style={[styles.button, { backgroundColor: t.applyBtn }]} onPress={onApply}>
-          <Text style={styles.buttonText}>Apply</Text>
+        <Pressable
+          style={[styles.button, { backgroundColor: applied ? "#16A34A" : t.applyBtn }]}
+          onPress={onApply}
+          disabled={applied}
+        >
+          <Text style={styles.buttonText}>{applied ? "Applied" : "Apply"}</Text>
         </Pressable>
       </View>
 

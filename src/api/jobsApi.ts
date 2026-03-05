@@ -22,7 +22,7 @@ export const fetchJobs = async (): Promise<Job[]> => {
 
     const jobsWithId: Job[] = jobsArray.map((job: any) => ({
       id: job.guid, // use stable unique identifier
-      // 🔥 Fetch ALL API fields
+      // Fetch ALL API fields
       title: job.title,
       mainCategory: job.mainCategory,
       companyName: job.companyName,

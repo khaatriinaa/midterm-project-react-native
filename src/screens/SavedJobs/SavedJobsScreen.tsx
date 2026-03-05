@@ -7,7 +7,7 @@ import ThemeToggle from "../../components/ThemeToggle";
 import styles from "./SavedJobsStyles";
 
 export default function SavedJobsScreen({ navigation }: any) {
-  const { savedJobs, removeJob } = useContext(JobsContext);
+  const { savedJobs, removeJob, isApplied } = useContext(JobsContext);
   const { isDark } = useContext(ThemeContext);
   const t = isDark ? darkTheme : lightTheme;
 
@@ -72,17 +72,25 @@ export default function SavedJobsScreen({ navigation }: any) {
                 )}
                 <View style={styles.cardHeaderText}>
                   <Text style={[styles.title, { color: t.title }]}>{item.title}</Text>
-                  <Text style={[styles.companyName, { color: t.subtitle }]}>{item.companyName}</Text>
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                    <Text style={[styles.companyName, { color: t.subtitle }]}>{item.companyName}</Text>
+                    {isApplied(item.id) && (
+                      <View style={{ backgroundColor: "#16A34A", paddingHorizontal: 8, paddingVertical: 2, borderRadius: 20 }}>
+                        <Text style={{ color: "#fff", fontSize: 11, fontWeight: "700" }}>✓ Applied</Text>
+                      </View>
+                    )}
+                  </View>
                 </View>
               </View>
 
               {/* Buttons */}
               <View style={styles.buttonRow}>
                 <Pressable
-                  style={[styles.button, { backgroundColor: t.applyBtn }]}
+                  style={[styles.button, { backgroundColor: isApplied(item.id) ? "#16A34A" : t.applyBtn }]}
                   onPress={() => navigation.navigate("ApplicationForm", { job: item, fromSaved: true })}
+                  disabled={isApplied(item.id)}
                 >
-                  <Text style={styles.buttonText}>Apply</Text>
+                  <Text style={styles.buttonText}>{isApplied(item.id) ? "Applied" : "Apply"}</Text>
                 </Pressable>
                 <Pressable
                   style={[styles.button, { backgroundColor: "#EF4444" }]}

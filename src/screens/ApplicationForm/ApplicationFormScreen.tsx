@@ -7,6 +7,7 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { ThemeContext } from "../../context/ThemeContext";
+import { JobsContext } from "../../context/JobsContext";
 import { lightTheme, darkTheme } from "../../styles/globalStyles";
 import styles from "./ApplicationFormStyles";
 
@@ -22,8 +23,9 @@ const schema = Yup.object().shape({
 });
 
 export default function ApplicationFormScreen({ route, navigation }: any) {
-  const { fromSaved } = route.params;
+  const { job, fromSaved } = route.params;
   const { isDark } = useContext(ThemeContext);
+  const { applyJob } = useContext(JobsContext);
   const t = isDark ? darkTheme : lightTheme;
 
   return (
@@ -38,6 +40,7 @@ export default function ApplicationFormScreen({ route, navigation }: any) {
           validateOnChange={true}
           validateOnBlur={true}
           onSubmit={(values, { resetForm }) => {
+            applyJob(job);
             Alert.alert("Application Submitted", "Your application has been sent.", [
               {
                 text: "Okay",
