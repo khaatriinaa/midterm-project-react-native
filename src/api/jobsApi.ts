@@ -1,5 +1,5 @@
 import { Job } from "../types/JobTypes";
-import { generateUUID } from "../utils/generateUUID";
+import uuid from "react-native-uuid";
 
 const BASE_URL = "https://empllo.com/api/v1";
 
@@ -21,8 +21,7 @@ export const fetchJobs = async (): Promise<Job[]> => {
     }
 
     const jobsWithId: Job[] = jobsArray.map((job: any) => ({
-      id: job.guid, // use stable unique identifier
-      // Fetch ALL API fields
+      id: job.guid ?? (uuid.v4() as string),
       title: job.title,
       mainCategory: job.mainCategory,
       companyName: job.companyName,
