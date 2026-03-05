@@ -15,7 +15,7 @@ export default function SearchBar({ value, onChange }: Props) {
   return (
     <View style={{ marginTop: -20, marginBottom: 16, zIndex: 10 }}>
       <TextInput
-        placeholder="Search job, company..."
+        placeholder="Search job..."
         placeholderTextColor={t.inputPlaceholder}
         value={value}
         onChangeText={onChange}

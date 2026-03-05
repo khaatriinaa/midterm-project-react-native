@@ -71,5 +71,39 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   buttonText: { color: "#fff", textAlign: "center", fontWeight: "600", fontSize: 15 },
+  emptyState: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 40,
+    paddingBottom: 60,
+  },
+  emptyEmoji: {
+    fontSize: 56,
+    marginBottom: 16,
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  emptySubtitle: {
+    fontSize: 14,
+    lineHeight: 22,
+    textAlign: "center",
+    marginBottom: 28,
+  },
+  emptyBtn: {
+    paddingHorizontal: 32,
+    paddingVertical: 14,
+    borderRadius: 14,
+    alignItems: "center",
+  },
+  emptyBtnText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 15,
+  },
   emptyText: { textAlign: "center", marginTop: 80, fontSize: 16 },
 });

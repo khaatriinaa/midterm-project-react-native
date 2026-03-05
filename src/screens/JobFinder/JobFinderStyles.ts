@@ -24,9 +24,12 @@ export default StyleSheet.create({
     color: "rgba(255,255,255,0.85)",
     marginTop: 2,
   },
+  flatList: {
+    flex: 1,
+  },
   listContent: {
     paddingHorizontal: 16,
-    paddingBottom: 180,
+    paddingBottom: 8,
   },
   savedJobButton: {
     position: "absolute",
@@ -47,5 +50,31 @@ export default StyleSheet.create({
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "700",
+  },
+  pagination: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    paddingBottom: 24,
+    borderTopWidth: 1,
+  },
+  pageBtn: {
+    width: 38,
+    height: 38,
+    borderRadius: 10,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  pageBtnText: {
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  pageDots: {
+    fontSize: 15,
+    paddingHorizontal: 2,
   },
 });

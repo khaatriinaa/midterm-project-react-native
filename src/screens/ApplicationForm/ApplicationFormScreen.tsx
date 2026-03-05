@@ -14,9 +14,10 @@ const schema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email address").required("Email is required"),
   contact: Yup.string()
+    .required("Contact number is required")
     .matches(/^[0-9]+$/, "Numbers only")
-    .min(10, "Must be at least 10 digits")
-    .required("Contact number is required"),
+    .length(11, "Must be exactly 11 digits")
+    .matches(/^09/, "Must start with 09"),
   reason: Yup.string().min(10, "Must be at least 10 characters").required("This field is required"),
 });
 

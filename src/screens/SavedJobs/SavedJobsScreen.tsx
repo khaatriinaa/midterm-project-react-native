@@ -36,7 +36,17 @@ export default function SavedJobsScreen({ navigation }: any) {
 
       <View style={[styles.container, { backgroundColor: t.background }]}>
         {savedJobs.length === 0 && (
-          <Text style={[styles.emptyText, { color: t.emptyText }]}>No saved jobs yet.</Text>
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyEmoji}>🔖</Text>
+            <Text style={[styles.emptyTitle, { color: t.title }]}>No saved jobs yet</Text>
+            <Text style={[styles.emptySubtitle, { color: t.muted }]}>Jobs you save will appear here so you can apply when ready.</Text>
+            <Pressable
+              style={[styles.emptyBtn, { backgroundColor: t.applyBtn }]}
+              onPress={() => navigation.navigate("JobFinder")}
+            >
+              <Text style={styles.emptyBtnText}>Browse Jobs</Text>
+            </Pressable>
+          </View>
         )}
         <FlatList
           data={savedJobs}
