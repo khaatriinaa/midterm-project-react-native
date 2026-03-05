@@ -13,7 +13,6 @@ export const fetchJobs = async (): Promise<Job[]> => {
 
     const data = await response.json();
 
-    // ✅ The correct array from API
     const jobsArray = data.jobs;
 
     if (!Array.isArray(jobsArray)) {

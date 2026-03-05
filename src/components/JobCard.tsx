@@ -41,10 +41,10 @@ export default function JobCard({ job, onApply, onPress }: Props) {
   }, [job]);
 
   return (
-    <Pressable onPress={onPress}>
-      <View style={[styles.card, { backgroundColor: t.card, borderColor: t.cardBorder }]}>
+    <View style={[styles.card, { backgroundColor: t.card, borderColor: t.cardBorder }]}>
 
-        {/* Company logo + title */}
+      {/* Tappable top section: logo + title + salary */}
+      <Pressable onPress={onPress}>
         <View style={styles.cardHeader}>
           {job.companyLogo ? (
             <Image
@@ -65,43 +65,42 @@ export default function JobCard({ job, onApply, onPress }: Props) {
           </View>
         </View>
 
-        {/* Salary + Location */}
         <View style={styles.salaryLocationRow}>
           <Text style={[styles.salaryText, { color: t.salary }]}>{salaryText}</Text>
           <Text style={[styles.locationText, { color: t.muted }]}>{locationText}</Text>
         </View>
+      </Pressable>
 
-        {/* Tags row */}
-        {tags.length > 0 && (
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={styles.tagsScrollView}
-            contentContainerStyle={styles.tagsContainer}
-          >
-            {tags.map((tag, i) => (
-              <View key={i} style={[styles.tag, { backgroundColor: t.tagBg, borderColor: t.tagBorder }]}>
-                <Text style={[styles.tagText, { color: t.tagText }]}>{tag}</Text>
-              </View>
-            ))}
-          </ScrollView>
-        )}
+      {/* Tags — free from Pressable so scroll works */}
+      {tags.length > 0 && (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.tagsScrollView}
+          contentContainerStyle={styles.tagsContainer}
+        >
+          {tags.map((tag, i) => (
+            <View key={i} style={[styles.tag, { backgroundColor: t.tagBg, borderColor: t.tagBorder }]}>
+              <Text style={[styles.tagText, { color: t.tagText }]}>{tag}</Text>
+            </View>
+          ))}
+        </ScrollView>
+      )}
 
-        {/* Buttons */}
-        <View style={styles.buttonRow}>
-          <Pressable
-            style={[styles.button, { backgroundColor: saved ? t.muted : t.saveBtn }]}
-            onPress={() => saveJob(job)}
-            disabled={saved}
-          >
-            <Text style={styles.buttonText}>{saved ? "Saved" : "Save"}</Text>
-          </Pressable>
-          <Pressable style={[styles.button, { backgroundColor: t.applyBtn }]} onPress={onApply}>
-            <Text style={styles.buttonText}>Apply</Text>
-          </Pressable>
-        </View>
-
+      {/* Buttons */}
+      <View style={styles.buttonRow}>
+        <Pressable
+          style={[styles.button, { backgroundColor: saved ? t.muted : t.saveBtn }]}
+          onPress={() => saveJob(job)}
+          disabled={saved}
+        >
+          <Text style={styles.buttonText}>{saved ? "Saved" : "Save"}</Text>
+        </Pressable>
+        <Pressable style={[styles.button, { backgroundColor: t.applyBtn }]} onPress={onApply}>
+          <Text style={styles.buttonText}>Apply</Text>
+        </Pressable>
       </View>
-    </Pressable>
+
+    </View>
   );
 }

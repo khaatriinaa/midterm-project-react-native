@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback, useMemo } from "react";
 import { View, FlatList, RefreshControl, Text, Pressable } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import uuid from "react-native-uuid";
 import { fetchJobs } from "../../api/jobsApi";
 import { Job } from "../../types/JobTypes";
 import JobCard from "../../components/JobCard";
@@ -25,11 +26,15 @@ export default function JobFinderScreen({ navigation }: any) {
     try {
       setRefreshing(true);
       const data = await fetchJobs();
-      setJobs(data);
+      const jobsWithIds = data.map((job: any) => ({
+        ...job,
+        id: job.id ?? uuid.v4(),
+      }));
+      setJobs(jobsWithIds);
       if (search.trim() === "") {
-        setFilteredJobs(data);
+        setFilteredJobs(jobsWithIds);
       } else {
-        setFilteredJobs(data.filter(job =>
+        setFilteredJobs(jobsWithIds.filter((job: any) =>
           job.title?.toLowerCase().includes(search.toLowerCase())
         ));
       }
