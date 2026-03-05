@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, FlatList, Text, Pressable, SafeAreaView, Alert } from "react-native";
+import { View, FlatList, Text, Pressable, SafeAreaView, Alert, Image } from "react-native";
 import { JobsContext } from "../../context/JobsContext";
 import { ThemeContext } from "../../context/ThemeContext";
 import { lightTheme, darkTheme } from "../../styles/globalStyles";
@@ -17,18 +17,13 @@ export default function SavedJobsScreen({ navigation }: any) {
       `Are you sure you want to remove "${title}" from your saved jobs?`,
       [
         { text: "Cancel", style: "cancel" },
-        {
-          text: "Remove",
-          style: "destructive",
-          onPress: () => removeJob(id),
-        },
+        { text: "Remove", style: "destructive", onPress: () => removeJob(id) },
       ]
     );
   };
 
   return (
     <SafeAreaView style={[styles.safeArea, { backgroundColor: t.headerBg }]}>
-      {/* Header */}
       <View style={[styles.header, { backgroundColor: t.headerBg }]}>
         <View style={styles.headerRow}>
           <View>
@@ -39,7 +34,6 @@ export default function SavedJobsScreen({ navigation }: any) {
         </View>
       </View>
 
-      {/* Content */}
       <View style={[styles.container, { backgroundColor: t.background }]}>
         {savedJobs.length === 0 && (
           <Text style={[styles.emptyText, { color: t.emptyText }]}>No saved jobs yet.</Text>
@@ -50,8 +44,29 @@ export default function SavedJobsScreen({ navigation }: any) {
           contentContainerStyle={styles.listContent}
           renderItem={({ item }) => (
             <View style={[styles.card, { backgroundColor: t.card, borderColor: t.cardBorder }]}>
-              <Text style={[styles.title, { color: t.title }]}>{item.title}</Text>
-              <Text style={[styles.companyName, { color: t.subtitle }]}>{item.companyName}</Text>
+
+              {/* Company logo + title row */}
+              <View style={styles.cardHeader}>
+                {item.companyLogo ? (
+                  <Image
+                    source={{ uri: item.companyLogo }}
+                    style={[styles.companyLogo, { backgroundColor: t.logoBg, borderColor: t.logoBorder }]}
+                    resizeMode="contain"
+                  />
+                ) : (
+                  <View style={[styles.companyLogoFallback, { backgroundColor: t.fallbackLogoBg, borderColor: t.fallbackLogoBorder }]}>
+                    <Text style={[styles.companyLogoFallbackText, { color: t.fallbackLogoText }]}>
+                      {item.companyName?.[0] ?? "?"}
+                    </Text>
+                  </View>
+                )}
+                <View style={styles.cardHeaderText}>
+                  <Text style={[styles.title, { color: t.title }]}>{item.title}</Text>
+                  <Text style={[styles.companyName, { color: t.subtitle }]}>{item.companyName}</Text>
+                </View>
+              </View>
+
+              {/* Buttons */}
               <View style={styles.buttonRow}>
                 <Pressable
                   style={[styles.button, { backgroundColor: t.applyBtn }]}
@@ -66,6 +81,7 @@ export default function SavedJobsScreen({ navigation }: any) {
                   <Text style={styles.buttonText}>Remove</Text>
                 </Pressable>
               </View>
+
             </View>
           )}
         />

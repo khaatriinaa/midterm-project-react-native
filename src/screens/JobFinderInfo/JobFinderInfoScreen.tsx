@@ -14,7 +14,6 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
   const t = isDark ? darkTheme : lightTheme;
   const saved = isSaved(job.id);
   const { width: contentWidth } = useWindowDimensions();
-  const { width } = useWindowDimensions();
 
   const salaryText = useMemo(() => {
     if (job.minSalary && job.maxSalary) {
@@ -41,6 +40,8 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: t.headerBg }]}>
+
+      {/* Hero */}
       <View style={[styles.hero, { backgroundColor: t.headerBg }]}>
         <View style={styles.heroTopRow}>
           <Pressable style={styles.backBtn} onPress={() => navigation.goBack()}>
@@ -63,21 +64,30 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
         </View>
         <View style={styles.metaRow}>
           {job.locations && job.locations.length > 0 && (
-            <View style={styles.metaPill}><Text style={styles.metaPillText}>{"📍 "}{job.locations[0]}</Text></View>
+            <View style={styles.metaPill}>
+              <Text style={styles.metaPillText}>{"📍 "}{job.locations[0]}</Text>
+            </View>
           )}
           {job.minSalary && job.maxSalary && (
-            <View style={styles.metaPill}><Text style={styles.metaPillText}>{"💰 "}{salaryText}</Text></View>
+            <View style={styles.metaPill}>
+              <Text style={styles.metaPillText}>{"💰 "}{salaryText}</Text>
+            </View>
           )}
           {job.jobType && (
-            <View style={styles.metaPill}><Text style={styles.metaPillText}>{"🕐 "}{job.jobType}</Text></View>
+            <View style={styles.metaPill}>
+              <Text style={styles.metaPillText}>{"🕐 "}{job.jobType}</Text>
+            </View>
           )}
         </View>
       </View>
+
+      {/* Content */}
       <ScrollView
         style={[styles.content, { backgroundColor: t.background }]}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[styles.scrollContent, { paddingHorizontal: 20, paddingTop: 24 }]}
         showsVerticalScrollIndicator={false}
       >
+        {/* Info grid */}
         <View style={styles.infoGrid}>
           <View style={[styles.infoCell, { backgroundColor: t.card, borderColor: t.cardBorder }]}>
             <Text style={[styles.infoCellLabel, { color: t.muted }]}>Salary</Text>
@@ -102,11 +112,18 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
             </View>
           ) : null}
         </View>
+
+        {/* Tags */}
         {tags.length > 0 && (
           <>
             <View style={[styles.divider, { backgroundColor: t.cardBorder }]} />
             <Text style={[styles.sectionTitle, { color: t.title }]}>Skills and Tags</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tagsScrollView} contentContainerStyle={styles.tagsContainer}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.tagsScrollView}
+              contentContainerStyle={styles.tagsContainer}
+            >
               {tags.map((tag, i) => (
                 <View key={i} style={[styles.tag, { backgroundColor: t.tagBg, borderColor: t.tagBorder }]}>
                   <Text style={[styles.tagText, { color: t.tagText }]}>{tag}</Text>
@@ -115,25 +132,106 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
             </ScrollView>
           </>
         )}
+
+        {/* About the Role */}
         {job.description ? (
           <>
             <View style={[styles.divider, { backgroundColor: t.cardBorder }]} />
             <Text style={[styles.sectionTitle, { color: t.title }]}>About the Role</Text>
+            <View style={[styles.descriptionCard, { backgroundColor: t.card, borderColor: t.cardBorder }]}>
             <RenderHtml
-              contentWidth={contentWidth}
+              contentWidth={contentWidth - 40}
               source={{ html: job.description }}
-              tagsStyles={{
-                p: { color: t.subtitle, fontSize: 14, lineHeight: 24, marginBottom: 8 },
-                li: { color: t.subtitle, fontSize: 14, lineHeight: 24 },
-                ul: { color: t.subtitle },
-                ol: { color: t.subtitle },
-                strong: { color: t.title },
-                b: { color: t.title },
-                a: { color: t.salary },
+              baseStyle={{
+                color: t.subtitle,
+                fontSize: 14,
+                lineHeight: 22,
+                fontFamily: undefined,
               }}
+              tagsStyles={{
+                body: {
+                  margin: 0,
+                  padding: 0,
+                },
+                p: {
+                  marginTop: 0,
+                  marginBottom: 12,
+                  color: t.subtitle,
+                  fontSize: 14,
+                  lineHeight: 22,
+                },
+                ul: {
+                  marginTop: 0,
+                  marginBottom: 12,
+                  paddingLeft: 8,
+                },
+                ol: {
+                  marginTop: 0,
+                  marginBottom: 12,
+                  paddingLeft: 8,
+                },
+                li: {
+                  color: t.subtitle,
+                  fontSize: 14,
+                  lineHeight: 22,
+                  marginBottom: 16,
+                },
+                strong: {
+                  color: t.title,
+                  fontWeight: "700",
+                },
+                b: {
+                  color: t.title,
+                  fontWeight: "700",
+                },
+                em: {
+                  color: t.subtitle,
+                  fontStyle: "italic",
+                },
+                a: {
+                  color: t.salary,
+                  textDecorationLine: "underline",
+                },
+                h1: {
+                  color: t.title,
+                  fontSize: 18,
+                  fontWeight: "700",
+                  marginTop: 16,
+                  marginBottom: 8,
+                },
+                h2: {
+                  color: t.title,
+                  fontSize: 16,
+                  fontWeight: "700",
+                  marginTop: 14,
+                  marginBottom: 6,
+                },
+                h3: {
+                  color: t.title,
+                  fontSize: 15,
+                  fontWeight: "700",
+                  marginTop: 12,
+                  marginBottom: 6,
+                },
+                h4: {
+                  color: t.title,
+                  fontSize: 14,
+                  fontWeight: "700",
+                  marginTop: 10,
+                  marginBottom: 4,
+                },
+                br: {
+                  lineHeight: 8,
+                },
+              }}
+              classesStyles={{}}
+              enableExperimentalMarginCollapsing
             />
+            </View>
           </>
         ) : null}
+
+        {/* Benefits */}
         {benefits.length > 0 && (
           <>
             <View style={[styles.divider, { backgroundColor: t.cardBorder }]} />
@@ -147,6 +245,8 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
           </>
         )}
       </ScrollView>
+
+      {/* Bottom bar */}
       <View style={[styles.bottomBar, { backgroundColor: t.card, borderTopColor: t.cardBorder }]}>
         <Pressable
           style={[styles.bottomBtn, { backgroundColor: saved ? t.muted : t.saveBtn }]}
@@ -162,6 +262,7 @@ export default function JobFinderInfoScreen({ route, navigation }: any) {
           <Text style={styles.bottomBtnText}>Apply Now</Text>
         </Pressable>
       </View>
+
     </SafeAreaView>
   );
 }

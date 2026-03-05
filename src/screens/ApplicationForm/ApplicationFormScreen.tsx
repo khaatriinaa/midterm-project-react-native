@@ -12,12 +12,12 @@ import styles from "./ApplicationFormStyles";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
-  email: Yup.string().email("Invalid email").required("Email required"),
+  email: Yup.string().email("Invalid email address").required("Email is required"),
   contact: Yup.string()
     .matches(/^[0-9]+$/, "Numbers only")
-    .min(10)
-    .required("Contact required"),
-  reason: Yup.string().min(10).required("Required"),
+    .min(10, "Must be at least 10 digits")
+    .required("Contact number is required"),
+  reason: Yup.string().min(10, "Must be at least 10 characters").required("This field is required"),
 });
 
 export default function ApplicationFormScreen({ route, navigation }: any) {
@@ -34,6 +34,8 @@ export default function ApplicationFormScreen({ route, navigation }: any) {
         <Formik
           initialValues={{ name: "", email: "", contact: "", reason: "" }}
           validationSchema={schema}
+          validateOnChange={true}
+          validateOnBlur={true}
           onSubmit={(values, { resetForm }) => {
             Alert.alert("Application Submitted", "Your application has been sent.", [
               {
@@ -50,29 +52,39 @@ export default function ApplicationFormScreen({ route, navigation }: any) {
             ]);
           }}
         >
-          {({ handleChange, handleSubmit, values, errors, touched }) => (
+          {({ handleChange, handleBlur, handleSubmit, setFieldTouched, values, errors, touched }) => (
             <ScrollView
               style={[styles.container, { backgroundColor: t.background }]}
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator={false}
             >
+              {/* Full Name */}
               <TextInput
                 placeholder="Full Name"
                 placeholderTextColor={t.inputPlaceholder}
-                onChangeText={handleChange("name")}
+                onChangeText={(val) => { handleChange("name")(val); setFieldTouched("name", true, false); }}
+                onBlur={handleBlur("name")}
                 value={values.name}
-                style={[styles.input, { backgroundColor: t.input, color: t.inputText, borderColor: t.cardBorder }]}
+                style={[
+                  styles.input,
+                  { backgroundColor: t.input, color: t.inputText, borderColor: touched.name && errors.name ? "#EF4444" : t.cardBorder },
+                ]}
               />
               {touched.name && errors.name && (
                 <Text style={styles.errorText}>{errors.name}</Text>
               )}
 
+              {/* Email */}
               <TextInput
                 placeholder="Email"
                 placeholderTextColor={t.inputPlaceholder}
-                onChangeText={handleChange("email")}
+                onChangeText={(val) => { handleChange("email")(val); setFieldTouched("email", true, false); }}
+                onBlur={handleBlur("email")}
                 value={values.email}
-                style={[styles.input, { backgroundColor: t.input, color: t.inputText, borderColor: t.cardBorder }]}
+                style={[
+                  styles.input,
+                  { backgroundColor: t.input, color: t.inputText, borderColor: touched.email && errors.email ? "#EF4444" : t.cardBorder },
+                ]}
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
@@ -80,26 +92,39 @@ export default function ApplicationFormScreen({ route, navigation }: any) {
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
 
+              {/* Contact */}
               <TextInput
                 placeholder="Contact Number"
                 placeholderTextColor={t.inputPlaceholder}
-                onChangeText={handleChange("contact")}
+                onChangeText={(val) => { handleChange("contact")(val); setFieldTouched("contact", true, false); }}
+                onBlur={handleBlur("contact")}
                 value={values.contact}
-                style={[styles.input, { backgroundColor: t.input, color: t.inputText, borderColor: t.cardBorder }]}
+                style={[
+                  styles.input,
+                  { backgroundColor: t.input, color: t.inputText, borderColor: touched.contact && errors.contact ? "#EF4444" : t.cardBorder },
+                ]}
                 keyboardType="numeric"
               />
               {touched.contact && errors.contact && (
                 <Text style={styles.errorText}>{errors.contact}</Text>
               )}
 
+              {/* Why hire you */}
               <TextInput
                 placeholder="Why should we hire you?"
                 placeholderTextColor={t.inputPlaceholder}
-                onChangeText={handleChange("reason")}
+                onChangeText={(val) => { handleChange("reason")(val); setFieldTouched("reason", true, false); }}
+                onBlur={handleBlur("reason")}
                 value={values.reason}
                 style={[
                   styles.input,
-                  { backgroundColor: t.input, color: t.inputText, borderColor: t.cardBorder, minHeight: 100, textAlignVertical: "top" },
+                  {
+                    backgroundColor: t.input,
+                    color: t.inputText,
+                    borderColor: touched.reason && errors.reason ? "#EF4444" : t.cardBorder,
+                    minHeight: 100,
+                    textAlignVertical: "top",
+                  },
                 ]}
                 multiline
               />

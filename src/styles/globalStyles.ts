@@ -129,6 +129,24 @@ export default StyleSheet.create({
     fontWeight: "600",
     fontSize: 15,
   },
+  tagsScrollView: {
+    marginBottom: 12,
+  },
+  tagsContainer: {
+    flexDirection: "row",
+    gap: 8,
+    paddingRight: 4,
+  },
+  tag: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+    borderWidth: 1,
+  },
+  tagText: {
+    fontSize: 12,
+    fontWeight: "600",
+  },
   searchInput: {
     borderWidth: 0,
     borderRadius: 14,
