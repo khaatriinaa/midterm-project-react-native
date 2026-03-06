@@ -1,9 +1,8 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  scrollContent: {
-    flexGrow: 1,
-  },
+  flex: { flex: 1 },
+  scrollContent: { flexGrow: 0 },
 
   heroHeader: {
     paddingTop: 56,
@@ -11,8 +10,6 @@ export default StyleSheet.create({
     paddingBottom: 28,
     overflow: "hidden",
   },
-
-  // Decorative bubbles matching JobFinderInfo
   heroBubble1: {
     position: "absolute",
     width: 200,
@@ -31,7 +28,6 @@ export default StyleSheet.create({
     bottom: -20,
     left: -30,
   },
-
   heroTopRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -46,11 +42,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  backBtnText: {
-    fontSize: 20,
-    color: "#fff",
-    fontWeight: "400",
-  },
+  backBtnText: { fontSize: 20, color: "#fff", fontWeight: "400" },
   heroTitle: {
     fontSize: 18,
     fontWeight: "800",
@@ -58,16 +50,12 @@ export default StyleSheet.create({
     flex: 1,
     textAlign: "center",
   },
-
   heroDivider: {
     height: 1,
     backgroundColor: "rgba(255,255,255,0.2)",
     marginBottom: 16,
   },
-
-  heroTextBlock: {
-    alignItems: "center",
-  },
+  heroTextBlock: { alignItems: "center" },
   heroSubtitle: {
     fontSize: 15,
     color: "rgba(255,255,255,0.95)",
@@ -88,13 +76,9 @@ export default StyleSheet.create({
     marginTop: -20,
     paddingHorizontal: 24,
     paddingTop: 32,
-    paddingBottom: 48,
-    flex: 1,
+    paddingBottom: 16,
   },
-
-  fieldGroup: {
-    marginBottom: 24,
-  },
+  fieldGroup: { marginBottom: 20 },
   fieldLabel: {
     fontSize: 11,
     fontWeight: "700",
@@ -110,8 +94,8 @@ export default StyleSheet.create({
     fontSize: 15,
   },
   textArea: {
-    minHeight: 130,
-    paddingTop: 15,
+    minHeight: 120,
+    paddingTop: 14,
   },
   errorText: {
     color: "#EF4444",
@@ -120,11 +104,11 @@ export default StyleSheet.create({
     marginLeft: 2,
     fontWeight: "500",
   },
-
   submitBtn: {
-    paddingVertical: 17,
+    paddingVertical: 16,
     borderRadius: 16,
-    marginTop: 12,
+    marginTop: 4,
+    marginBottom: 8,
     alignItems: "center",
     shadowColor: "#2563EB",
     shadowOffset: { width: 0, height: 4 },
