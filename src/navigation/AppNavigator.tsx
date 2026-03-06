@@ -83,7 +83,7 @@ export default function AppNavigator() {
         <Stack.Screen
           name="ApplicationForm"
           component={ApplicationFormScreen}
-          options={{ title: "Apply for Job" }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="JobFinderInfo"

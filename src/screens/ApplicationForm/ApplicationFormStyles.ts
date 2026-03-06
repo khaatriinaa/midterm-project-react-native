@@ -1,44 +1,141 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  container: {
+  scrollContent: {
+    flexGrow: 1,
+  },
+
+  heroHeader: {
+    paddingTop: 56,
+    paddingHorizontal: 20,
+    paddingBottom: 28,
+    overflow: "hidden",
+  },
+
+  // Decorative bubbles matching JobFinderInfo
+  heroBubble1: {
+    position: "absolute",
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: "rgba(255,255,255,0.07)",
+    top: -80,
+    right: -50,
+  },
+  heroBubble2: {
+    position: "absolute",
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: "rgba(255,255,255,0.05)",
+    bottom: -20,
+    left: -30,
+  },
+
+  heroTopRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 18,
+  },
+  backBtn: {
+    width: 38,
+    height: 38,
+    borderRadius: 12,
+    backgroundColor: "rgba(255,255,255,0.2)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  backBtnText: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "400",
+  },
+  heroTitle: {
+    fontSize: 18,
+    fontWeight: "800",
+    color: "#ffffff",
     flex: 1,
-    padding: 20,
+    textAlign: "center",
+  },
+
+  heroDivider: {
+    height: 1,
+    backgroundColor: "rgba(255,255,255,0.2)",
+    marginBottom: 16,
+  },
+
+  heroTextBlock: {
+    alignItems: "center",
+  },
+  heroSubtitle: {
+    fontSize: 15,
+    color: "rgba(255,255,255,0.95)",
+    fontWeight: "700",
+    textAlign: "center",
+    marginBottom: 4,
+  },
+  heroCompany: {
+    fontSize: 13,
+    color: "rgba(255,255,255,0.65)",
+    textAlign: "center",
+    marginBottom: 8,
+  },
+
+  formCard: {
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    marginTop: -20,
+    paddingHorizontal: 24,
+    paddingTop: 32,
+    paddingBottom: 48,
+    flex: 1,
+  },
+
+  fieldGroup: {
+    marginBottom: 24,
+  },
+  fieldLabel: {
+    fontSize: 11,
+    fontWeight: "700",
+    letterSpacing: 0.8,
+    marginBottom: 10,
+    textTransform: "uppercase",
   },
   input: {
-    borderWidth: 1,
-    borderRadius: 12,
+    borderWidth: 1.5,
+    borderRadius: 14,
     paddingHorizontal: 16,
-    paddingVertical: 14,
-    marginBottom: 6,
+    paddingVertical: 15,
     fontSize: 15,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+  },
+  textArea: {
+    minHeight: 130,
+    paddingTop: 15,
   },
   errorText: {
     color: "#EF4444",
     fontSize: 12,
-    marginBottom: 8,
-    marginLeft: 4,
+    marginTop: 6,
+    marginLeft: 2,
+    fontWeight: "500",
   },
-  button: {
-    backgroundColor: "#2563EB",
-    paddingVertical: 16,
-    borderRadius: 14,
-    marginTop: 16,
+
+  submitBtn: {
+    paddingVertical: 17,
+    borderRadius: 16,
+    marginTop: 12,
+    alignItems: "center",
     shadowColor: "#2563EB",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: 10,
     elevation: 5,
   },
-  buttonText: {
+  submitBtnText: {
     color: "#fff",
-    textAlign: "center",
     fontWeight: "700",
     fontSize: 16,
+    letterSpacing: 0.3,
   },
 });
